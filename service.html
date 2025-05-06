@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #F5F5F4; /* پس‌زمینه روشن و گرم */
+      color: #111827; /* متون اصلی */
+      margin: 0;
+      padding: 0;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    p.subtitle {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #6B7280;
+      margin-bottom: 3rem;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s, color 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 1rem;
+      fill: #B6BBC4; /* خاکستری نقره‌ای */
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+
+    .card p {
+      color: #4B5563;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card button {
+      background: #6B7280;
+      color: #ffffff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s ease;
+    }
+
+    .card button:hover {
+      background: #4B5563;
+    }
+ 
+    .theme-toggle{
+      background: none;
+      border: none;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 0.8rem;
+      transition: color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.2);
+    }
+
+    .link{
+      top: 2rem;
+      right: 2rem;
+      background: #6B7280;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+
+    .link:hover{
+      background: #4B5563;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .card {
+        padding: 1.5rem;
+      }
+      .theme-toggle {
+        margin-right: 0px;
+      }
+    }
+    @media (min-width: 900px) {
+    .top-header {
+      justify-content: flex-start;
+      gap: 1rem;
+    }
+
+    .menu {
+      margin-right: auto;
+    }
+
+   }
+
+
+    /* 🌙 DARK MODE SUPPORT */
+    .dark-mode {
+      background: #111827;
+      color: #f5f5f4;
+    }
+
+    .dark-mode .card {
+      background: #1F2937;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    }
+
+    .dark-mode .card p {
+      color: #D1D5DB;
+    }
+
+    .dark-mode .card button {
+      background: #B6BBC4;
+      color: #111827;
+    }
+
+    .dark-mode .card button:hover {
+      background: #9CA3AF;
+    }
+
+    .dark-mode .card h3{
+      color: #9CA3AF;
+    }
+
+    .dark-mode h1{
+      color: #9CA3AF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <a href="home.html">
+    <button class="link">HOME</button></a>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    <h1>Our Services</h1>
+    <p class="subtitle">We offer tailored solutions to grow your business</p>
+
+    <div class="services">
+      <div class="card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 5h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z"/></svg>
+        <h3>Web Design</h3>
+        <p>Modern, responsive, and SEO-friendly website design.</p>
+        <button>Learn More</button>
+      </div>
+      <div class="card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 1H7a2 2 0 0 0-2 2v18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 18H7V5h10z"/></svg>
+        <h3>App Development</h3>
+        <p>Custom mobile apps for iOS and Android platforms.</p>
+        <button>Learn More</button>
+      </div>
+      <div class="card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 17h2v-4h4v4h2l-4 4-4-4zm14-10h-2v4h-4V7h-2l4-4 4 4z"/></svg>
+        <h3>SEO & Marketing</h3>
+        <p>Boost your visibility and reach your ideal audience online.</p>
+        <button>Learn More</button>
+      </div>
+      <div class="card">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 8h-3V4H7v4H4v13h16zM9 6h6v2H9zm3 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+        <h3>Technical Support</h3>
+        <p>Reliable maintenance and issue resolution for your site.</p>
+        <button>Learn More</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById("theme-toggle");
+      themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+
+  </script>
+
+</body>
+</html>

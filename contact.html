@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تماس با ما</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f9;
+      color: #111827;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: #F9FAFB;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      transition: background-color 0.3s;
+      position: relative;
+      margin: auto;
+    }
+    body.dark header {
+      background-color: #222;
+    }
+    .logo-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .logo:hover{
+      transform: scale(1.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+    }
+    .menu a, .menu button {
+      background: none;
+      border: none;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 0.8rem;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover{
+      transform: scale(1.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.dark-mode {
+      background-color: #111827;
+      color: #f4f4f9;
+    }
+
+
+    body.dark-mode header {
+      background-color: #1f2937;
+    }
+
+
+    body.dark-mode .menu a {
+      color:  #f4f4f9;
+    }
+    
+    body.dark-mode .menu.show{
+      background-color: #1f2937;
+      
+    }
+
+    /* دسکتاپ */
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+      }
+      .logo-container {
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 1rem;
+      }
+      .menu {
+        flex-direction: column;
+        background-color: #f9fafb;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(-20px);
+        backdrop-filter: blur(6px);
+      }
+      body.dark .menu {
+        background-color: #222;
+      }
+      .menu.show {
+        max-height: 500px;
+        opacity: 1;
+        padding: 1rem 0;
+        transform: translateY(0);
+      }
+    }
+
+    .contact {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .contact {
+      background-color: #1f2937;
+    }
+
+    .contact h1 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact p {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    body.dark-mode .contact p {
+      color: #d1d5db;
+    }
+
+    .info {
+      margin-bottom: 2rem;
+      text-align: right;
+    }
+
+    .info p {
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-form {
+      background-color: #ffffff;
+      padding: 2rem;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+
+    body.dark-mode .contact-form {
+      background-color: #2d3748;
+      border-color: #4b5563;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #f5f5f4;
+      color: #111827;
+    }
+
+    body.dark-mode .form-group input,
+    body.dark-mode .form-group textarea  {
+      background-color: #4b5563;
+      color: #f5f5f4;
+      border-color: #4b5563;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.8rem;
+      background-color: #6b7280;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #4b5563;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #6b7280;
+    }
+
+    body.dark-mode footer {
+      color: #d1d5db;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <h2 class="logo" id="logo">ROSE</h2>
+    </div>
+    <nav class="menu" id="menu">
+      <a href="home.html">Home</a>
+      <a href="service.html">Services</a>
+      <a href="about.html">About</a>
+      <button id="theme-toggle">🌙</button>
+    </nav>
+  </header>
+
+  <section class="contact">
+    <h1>تماس با ما</h1>
+    <p dir="rtl">ما همیشه آماده‌ی پاسخگویی به سوالات شما هستیم. لطفا با استفاده از فرم زیر با ما در تماس باشید.</p>
+    <div class="info" dir="rtl">
+      <p><strong >نام:</strong> Rozita Allahyari</p>
+      <p><strong>ایمیل:</strong> rozi4vb@gmail.com</p>
+      <p><strong>تلفن:</strong> 09182577748</p>
+    </div>
+    <div class="contact-form" dir="rtl">
+      <form action="#" method="POST">
+        <div class="form-group">
+          <label for="name">نام:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+          <label for="email">ایمیل:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="message">پیام:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit">ارسال</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© تمامی حقوق محفوظ است - 2025</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+
+    const logo = document.getElementById("logo");
+    const menu = document.getElementById("menu");
+
+    function toggleMenu() {
+      if (window.innerWidth <= 900) {
+        menu.classList.toggle("show");
+      }
+    }
+
+    logo.addEventListener("click", toggleMenu);
+  </script>
+</body>
+</html>

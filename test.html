@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فرم طراحی سایت</title>
+  <style>
+    :root {
+      --bg-color: #e0e0e0;
+      --text-color: #333;
+      --accent-color: #b0b0b0;
+      --overlay-color: rgba(0, 0, 0, 0.5);
+      --primary: #a0a0ff;
+      --button-hover: #8c8cff;
+      --box-bg: #ffffff;
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #2e2e2e;
+      --text-color: #eee;
+      --accent-color: #777;
+      --box-bg: #3a3a3a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Vazirmatn", sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      width: 100%;
+      background-color: #b3b1b1;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      transition: background-color 0.3s;
+      position: relative;
+      margin: auto;
+    }
+
+    .logo-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .menu {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      transition: max-height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+    }
+    .menu a, .menu button {
+      background: none;
+      border: none;
+      color: #333;
+      text-decoration: none;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0.5rem 0.8rem;
+      transition: color 0.3s;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .start-btn {
+      margin-top: 1rem;
+      padding: 0.7rem 2rem;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: var(--button-hover);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: var(--overlay-color);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .form-box {
+      background-color: var(--box-bg);
+      padding: 4rem 3rem;
+      border-radius: 24px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .form-step {
+      display: none;
+      flex-direction: column;
+      gap: 2rem;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .form-step.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-step label {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--text-color);
+    }
+
+    .form-step input,
+    .form-step select {
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+      background-color: #f9f9f9;
+    }
+
+    .form-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .form-buttons button {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      background-color: var(--primary);
+      color: white;
+      transition: background 0.3s ease;
+    }
+
+    .form-buttons button:hover {
+      background-color: var(--button-hover);
+    }
+
+    .dark-toggle {
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .form-box {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+      }
+    }
+    @media (max-width: 900px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        background-color: #b3b1b1;
+        }
+      .logo-container {
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 1rem;
+    }
+      .menu {
+        flex-direction: column;
+        background-color: #b3b1b1;
+        width: 100%;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transform: translateY(-20px);
+        backdrop-filter: blur(6px);
+    }
+
+  .menu.show {
+    max-height: 500px;
+    opacity: 1;
+    padding: 1rem 0;
+    transform: translateY(0);
+     }
+    }
+
+
+    body.dark-mode {
+  background-color: #111827;
+  color: #f5f5f4;
+}
+
+body.dark-mode header,
+body.dark-mode footer,
+body.dark-mode .menu,
+body.dark-mode .hero,
+body.dark-mode .service-card {
+  background-color: #1F2937;
+  color: #f5f5f4;
+}
+
+body.dark-mode a,
+body.dark-mode .menu a {
+  color: #D1D5DB;
+}
+
+body.dark-mode .menu a:hover {
+  color: #9CA3AF;
+}
+
+body.dark-mode .hero button {
+  background-color: #4B5563;
+  color: #f5f5f4;
+}
+
+body.dark-mode .hero button:hover {
+  background-color: #6B7280;
+}
+
+body.dark-mode .hero h1{
+   color: #9CA3AF;
+}
+
+body.dark-mode .service-card h3{
+  color: #9CA3AF;
+}
+  </style>
+</head>
+<body>
+    <header dir="ltr">
+        <div class="logo-container">
+          <h2 class="logo" id="logo">ROSE</h2>
+        </div>
+        <nav class="menu" id="menu">
+          <a href="service.html">Services</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <button id="theme-toggle">🌙</button>
+        </nav>
+      </header>
+
+  <div class="container">
+    <h1>خوش آمدید!</h1>
+    <p>شما می‌توانید سوال‌های اولیه را برای ساخت سایت مدنظرتان پاسخ دهید.</p>
+    <button class="start-btn" onclick="openForm()">شروع</button>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeForm(event)">
+    <div class="form-box" onclick="event.stopPropagation()">
+      <form id="siteForm">
+        <div class="form-step active">
+          <label>سایت را برای چه کاری می‌خواهید؟</label>
+          <input type="text" name="purpose" required>
+        </div>
+        <div class="form-step">
+          <label>مخاطب هدف شما چه کسانی هستند؟</label>
+          <input type="text" name="audience" required>
+        </div>
+        <div class="form-step">
+          <label>نوع سایت مورد نظر:</label>
+          <select name="type">
+            <option>شرکتی</option>
+            <option>فروشگاهی</option>
+            <option>شخصی</option>
+            <option>دیگر</option>
+          </select>
+        </div>
+        <div class="form-step">
+          <label>امکانات خاص مورد نیاز</label>
+          <input type="text" name="features">
+        </div>
+        <div class="form-step">
+          <label>سبک مورد علاقه (رنگ‌ها، حس کلی)</label>
+          <input type="text" name="style">
+        </div>
+        <div class="form-step">
+          <label>آیا نمونه سایتی مدنظر دارید؟ (آدرس وارد کنید)</label>
+          <input type="url" name="reference">
+        </div>
+        <div class="form-buttons" id="stepBtns">
+          <button type="button" onclick="prevStep()">قبلی</button>
+          <button type="button" onclick="nextStep()">بعدی</button>
+        </div>
+        <div class="form-buttons" id="submitBtns" style="display:none">
+          <button type="button" onclick="prevStep()">قبلی</button>
+          <button type="submit">ارسال</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+        const logo = document.getElementById("logo");
+    const menu = document.getElementById("menu");
+
+    function toggleMenu() {
+      if (window.innerWidth <= 900) {
+        menu.classList.toggle("show");
+      }
+    }
+
+    logo.addEventListener("click", toggleMenu);
+    const overlay = document.getElementById("overlay");
+    const form = document.getElementById("siteForm");
+    const steps = Array.from(document.querySelectorAll(".form-step"));
+    const stepBtns = document.getElementById("stepBtns");
+    const submitBtns = document.getElementById("submitBtns");
+    let currentStep = 0;
+
+    function openForm() {
+      overlay.style.display = "flex";
+    }
+
+    function closeForm(e) {
+      overlay.style.display = "none";
+      form.reset();
+      currentStep = 0;
+      updateSteps();
+    }
+
+    function updateSteps() {
+      steps.forEach((step, index) => {
+        step.classList.toggle("active", index === currentStep);
+      });
+      stepBtns.style.display = currentStep === steps.length - 1 ? "none" : "flex";
+      submitBtns.style.display = currentStep === steps.length - 1 ? "flex" : "none";
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        updateSteps();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        updateSteps();
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("فعلاً ارسال ایمیل شبیه‌سازی شده است.");
+      overlay.style.display = "none";
+      form.reset();
+      currentStep = 0;
+      updateSteps();
+    });
+
+    const themeToggle = document.getElementById("theme-toggle");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      themeToggle.textContent = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+    });
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fa" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About</title>
+  <style>
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      font-family: sans-serif;
+    }
+
+    .about-us {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+      max-width: 1200px;
+      padding: 2rem;
+    }
+
+
+    .about-us img {
+      width: 500px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 40px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .about-us img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .text {
+      max-width: 600px;
+      margin-top: 40px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+    .text h2:hover {
+      transform: translateY(-3px);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      background-color: #5da2f0;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 1rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+    
+    }
+
+    button:hover {
+      background-color: #4B5563;
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    a{
+      text-decoration: none;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .about-us {
+        flex-direction: column;
+        text-align: center;
+      }
+      .about-us img {
+        width: 80%;
+        margin-top: 20px;
+      }
+      .text {
+        margin-top: 20px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <section class="about-us">
+    <div class="pic">
+      <img src="rose.jpg" alt="rose pic" class="image" />
+    </div>
+    <div class="text">
+      <h2>ROSE</h2>
+      <p>
+        Hi, I'm a passionate and creative individual who loves exploring new ideas and turning them into reality. I have a strong interest in web design and development, and I’m always excited to learn and grow in this field.
+        In my free time, I enjoy reading, creating new projects, and improving my skills. I believe in continuous learning, hard work, and staying curious about the world around me. I’m excited for the journey ahead and the opportunities to come.
+      </p>
+      <button>
+      <a href="home.html"> HOME
+      </button>
+      </a>
+      <button>MORE</button>
+    </div>
+  </section>
+</body>
+</html>
