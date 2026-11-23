@@ -1,0 +1,46 @@
+<%- include('partials/head', { pageTitle: 'Services', pageMeta: 'Treatments shown on the public website' }) %>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2><%= services.length %> treatments</h2>
+    <a class="btn btn--primary btn--sm" href="/admin/services/new"><%- icon('plus') %><span>Add treatment</span></a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th scope="col">Treatment</th>
+          <th scope="col">URL</th>
+          <th scope="col">Price</th>
+          <th scope="col">Featured</th>
+          <th scope="col">Order</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% services.forEach(function (s) { %>
+          <tr>
+            <td><strong><%= s.name %></strong><span class="muted"><%= s.blurb.slice(0, 70) %>…</span></td>
+            <td><a class="muted" href="/services/<%= s.slug %>" target="_blank" rel="noopener noreferrer">/services/<%= s.slug %></a></td>
+            <td><%= s.price %></td>
+            <td><%= s.featured ? 'Yes' : '—' %></td>
+            <td><%= s.sort %></td>
+            <td>
+              <div class="admin-actions">
+                <a class="admin-link-btn" href="/admin/services/<%= s.id %>">Edit</a>
+                <form method="post" action="/admin/services/<%= s.id %>/delete"
+                      data-confirm="Delete “<%= s.name %>”? This cannot be undone.">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <button class="admin-danger" type="submit">Delete</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('partials/foot') %>

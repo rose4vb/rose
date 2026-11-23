@@ -1,0 +1,37 @@
+<%- include('partials/head', { pageTitle: 'Messages', pageMeta: 'Notes sent through the contact form' }) %>
+
+<section class="admin-card">
+  <div class="admin-card__head"><h2><%= messages.length %> messages</h2></div>
+  <div class="admin-card__body">
+    <% if (!messages.length) { %>
+      <p class="admin-empty">No messages yet. Notes sent through the contact form will appear here.</p>
+    <% } else { %>
+      <ul class="admin-list">
+        <% messages.forEach(function (m) { %>
+          <li class="admin-list__item">
+            <div>
+              <h3>
+                <%= m.name %>
+                <span class="badge badge--<%= m.handled ? 'confirmed' : 'pending' %>"><%= m.handled ? 'Handled' : 'New' %></span>
+              </h3>
+              <p>
+                <% if (m.email) { %><a href="mailto:<%= m.email %>"><%= m.email %></a><% } %>
+                <% if (m.phone) { %> · <a href="tel:<%= m.phone.replace(/[^\d+]/g, '') %>"><%= m.phone %></a><% } %>
+                · <span class="muted"><%= m.created_at %></span>
+              </p>
+              <p style="margin-top:.4rem;color:var(--ink);"><%= m.message %></p>
+            </div>
+            <div class="admin-actions">
+              <form method="post" action="/admin/messages/<%= m.id %>/handled">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="admin-link-btn" type="submit"><%= m.handled ? 'Mark unread' : 'Mark handled' %></button>
+              </form>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/foot') %>

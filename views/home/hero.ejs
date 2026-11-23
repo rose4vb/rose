@@ -1,0 +1,91 @@
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__wash" aria-hidden="true">
+    <svg class="hero__hills"><use href="#ink-hills"/></svg>
+    <span class="hero__ring"></span>
+    <span class="petal petal--1"><svg viewBox="0 0 20 22"><use href="#petal"/></svg></span>
+    <span class="petal petal--2"><svg viewBox="0 0 20 22"><use href="#petal"/></svg></span>
+    <span class="petal petal--3"><svg viewBox="0 0 20 22"><use href="#petal"/></svg></span>
+    <span class="petal petal--4"><svg viewBox="0 0 20 22"><use href="#petal"/></svg></span>
+  </div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">
+        <span class="hero__jp" lang="ja">さくらデンタル</span>
+        <span class="hero__rule" aria-hidden="true"></span>
+        <span class="hero__place">Marylebone, London</span>
+      </p>
+
+      <h1 class="hero__title" id="hero-title">
+        A Healthier Smile.<br>
+        A More <em>Confident</em> You.
+      </h1>
+
+      <p class="hero__lede">
+        Thoughtful dental care, advanced treatments, and a gentle experience
+        designed around you.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/book">
+          <%- icon('calendar') %><span>Book an Appointment</span>
+        </a>
+        <a class="btn btn--ghost" href="/about">
+          <span class="btn__play"><%- icon('play') %></span><span>Explore Our Clinic</span>
+        </a>
+      </div>
+
+      <div class="hero__proof">
+        <div class="avatar-stack" aria-hidden="true">
+          <img src="<%= IMG.woman1 %>" alt="" width="48" height="48" loading="lazy">
+          <img src="<%= IMG.man1 %>" alt="" width="48" height="48" loading="lazy">
+          <img src="<%= IMG.woman2 %>" alt="" width="48" height="48" loading="lazy">
+          <span class="avatar-stack__more">1k+</span>
+        </div>
+        <div class="hero__proof-text">
+          <span class="stars" aria-label="Rated 4.9 out of 5">
+            <%- icon('star') %><%- icon('star') %><%- icon('star') %><%- icon('star') %><%- icon('star') %>
+          </span>
+          <p>Trusted by 1,200+ patients</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__arch">
+        <img src="<%= IMG.hero %>"
+             alt="A patient resting comfortably in the dental chair while a dentist works gently"
+             width="900" height="1120" fetchpriority="high">
+        <span class="hero__grain" aria-hidden="true"></span>
+      </div>
+
+      <span class="hero__vertical" lang="ja" aria-hidden="true">桜の微笑み</span>
+
+      <svg class="hero__branch" aria-hidden="true"><use href="#branch"/></svg>
+      <span class="hero__blossoms" aria-hidden="true">
+        <svg class="blossom blossom--a" viewBox="-42 -42 84 84"><use href="#sakura"/></svg>
+        <svg class="blossom blossom--b" viewBox="-42 -42 84 84"><use href="#sakura"/></svg>
+        <svg class="blossom blossom--c" viewBox="-42 -42 84 84"><use href="#sakura"/></svg>
+        <svg class="blossom blossom--d" viewBox="-42 -42 84 84"><use href="#sakura"/></svg>
+      </span>
+
+      <a class="hero__next" href="/book">
+        <span class="hero__next-dot" aria-hidden="true"></span>
+        <span>
+          <span class="hero__next-label">Next availability</span>
+          <span class="hero__next-time">Tomorrow · 9:30 am</span>
+        </span>
+        <%- icon('arrow-up-right') %>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="container trust-strip__inner">
+    <span><%- icon('leaf') %>Gentle sedation available</span>
+    <span><%- icon('clock') %>Same-week appointments</span>
+    <span><%- icon('scan') %>Digital 3D scanning</span>
+    <span><%- icon('shield') %>Transparent pricing</span>
+  </div>
+</div>

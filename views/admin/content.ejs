@@ -1,0 +1,115 @@
+<%- include('partials/head', { pageTitle: 'Content & FAQ', pageMeta: 'Clinic details, opening hours and frequently asked questions' }) %>
+
+<% const editingFaq = editId ? faqs.find(function (f) { return String(f.id) === String(editId); }) : null; %>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2>Clinic details</h2>
+    <span class="admin-top__meta">Used across the header, footer and contact sections</span>
+  </div>
+  <div class="admin-card__body">
+    <form class="admin-form" method="post" action="/admin/content/clinic">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="c-name">Clinic name</label>
+          <input id="c-name" name="name" type="text" value="<%= clinic.name %>">
+        </div>
+        <div class="field">
+          <label for="c-phone">Phone</label>
+          <input id="c-phone" name="phone" type="text" value="<%= clinic.phone %>">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="c-tagline">Tagline</label>
+        <input id="c-tagline" name="tagline" type="text" value="<%= clinic.tagline %>">
+      </div>
+
+      <div class="field">
+        <label for="c-address">Address</label>
+        <input id="c-address" name="address" type="text" value="<%= clinic.address %>">
+      </div>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="c-whatsapp">WhatsApp number (digits only)</label>
+          <input id="c-whatsapp" name="whatsapp" type="text" value="<%= clinic.whatsapp %>">
+        </div>
+        <div class="field">
+          <label for="c-email">Email</label>
+          <input id="c-email" name="email" type="email" value="<%= clinic.email %>">
+        </div>
+      </div>
+
+      <p class="admin-card__title" style="font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);font-weight:700;">Opening hours</p>
+      <% [0,1,2,3].forEach(function (i) { %>
+        <div class="admin-grid-2">
+          <div class="field">
+            <label for="day-<%= i %>">Day(s)</label>
+            <input id="day-<%= i %>" name="day_<%= i %>" type="text" value="<%= clinic.hours[i] ? clinic.hours[i].day : '' %>">
+          </div>
+          <div class="field">
+            <label for="time-<%= i %>">Hours</label>
+            <input id="time-<%= i %>" name="time_<%= i %>" type="text" value="<%= clinic.hours[i] ? clinic.hours[i].time : '' %>">
+          </div>
+        </div>
+      <% }); %>
+
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit">Save clinic details</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2><%= editingFaq ? 'Edit question' : 'Add a question' %></h2>
+    <% if (editingFaq) { %><a class="admin-link-btn" href="/admin/content">Cancel edit</a><% } %>
+  </div>
+  <div class="admin-card__body">
+    <form class="admin-form" method="post" action="/admin/faqs/save">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% if (editingFaq) { %><input type="hidden" name="id" value="<%= editingFaq.id %>"><% } %>
+
+      <div class="field">
+        <label for="f-question">Question</label>
+        <input id="f-question" name="question" type="text" required value="<%= editingFaq ? editingFaq.question : '' %>">
+      </div>
+      <div class="field">
+        <label for="f-answer">Answer</label>
+        <textarea id="f-answer" name="answer" rows="4" required><%= editingFaq ? editingFaq.answer : '' %></textarea>
+      </div>
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit"><%= editingFaq ? 'Save question' : 'Add question' %></button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="admin-card">
+  <div class="admin-card__head"><h2><%= faqs.length %> questions</h2></div>
+  <div class="admin-card__body">
+    <ul class="admin-list">
+      <% faqs.forEach(function (f) { %>
+        <li class="admin-list__item">
+          <div>
+            <h3><%= f.question %></h3>
+            <p><%= f.answer %></p>
+          </div>
+          <div class="admin-actions">
+            <a class="admin-link-btn" href="/admin/content?edit=<%= f.id %>">Edit</a>
+            <form method="post" action="/admin/faqs/<%= f.id %>/delete" data-confirm="Delete this question?">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="admin-danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</section>
+
+<%- include('partials/foot') %>

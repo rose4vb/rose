@@ -1,0 +1,76 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page">Patient Stories</span>
+        </nav>
+        <p class="eyebrow">Patient stories</p>
+        <h1 class="page-hero__title">Smiles they<br><em>love.</em></h1>
+        <p class="page-hero__lede">The nervous ones, the curious ones, and the ones who now arrive
+          early with a coffee. These are the stories we hear most often.</p>
+      </div>
+      <aside class="page-hero__aside">
+        <p>We publish reviews only with written consent and never edit the words. Until our verified
+          reviews are live, the stories below are clearly marked sample content.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="stories-page">
+    <div class="container">
+      <div class="rating-summary">
+        <div>
+          <span class="rating-summary__score">4.9</span>
+          <span class="stars" aria-label="Rated 4.9 out of 5">
+            <%- icon('star') %><%- icon('star') %><%- icon('star') %><%- icon('star') %><%- icon('star') %>
+          </span>
+        </div>
+        <div class="rating-summary__meta">
+          <strong><%= testimonials.length %> sample stories</strong><br>
+          Illustrative content — verified reviews coming soon
+        </div>
+        <p class="rating-summary__disclosure">
+          <strong>Please note:</strong> every story on this page is demonstration content created for
+          the design. They are not real patients, and no clinical outcome is claimed.
+        </p>
+      </div>
+
+      <div class="stories-grid">
+        <% testimonials.forEach(function (t) { %>
+          <article class="story-card">
+            <div class="story-card__top">
+              <span class="story-card__avatar">
+                <img src="<%= t.avatar %>" alt="" width="64" height="64" loading="lazy">
+              </span>
+              <span class="story-card__sample">Sample</span>
+              <span class="story-card__mark" aria-hidden="true"><%- icon('quote') %></span>
+            </div>
+            <blockquote class="story-card__quote"><%= t.quote %></blockquote>
+            <div class="story-card__foot">
+              <span class="stars" aria-label="<%= t.rating %> out of 5 stars">
+                <% for (let s = 0; s < t.rating; s++) { %><%- icon('star') %><% } %>
+              </span>
+              <p class="story-card__name"><%= t.name %> <span><%= t.treatment %></span></p>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta-band', {
+    ctaTitle: 'Your story<br><em>starts here.</em>',
+    ctaText: 'Book a consultation and tell us what you would like to change — or what you would like to keep.'
+  }) %>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

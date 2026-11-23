@@ -1,0 +1,113 @@
+<%- include('partials/head', { pageTitle: 'Appointments', pageMeta: 'Requests, confirmations and the day ahead' }) %>
+
+<section class="admin-stats">
+  <div class="admin-stat">
+    <span class="admin-stat__label">Pending review</span>
+    <span class="admin-stat__value"><%= counts.pending || 0 %></span>
+  </div>
+  <div class="admin-stat">
+    <span class="admin-stat__label">Confirmed</span>
+    <span class="admin-stat__value"><%= counts.confirmed || 0 %></span>
+  </div>
+  <div class="admin-stat">
+    <span class="admin-stat__label">Today’s visits</span>
+    <span class="admin-stat__value"><%= todayCount %></span>
+  </div>
+  <div class="admin-stat">
+    <span class="admin-stat__label">Unread messages</span>
+    <span class="admin-stat__value"><%= unread %></span>
+  </div>
+</section>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2>Appointment requests</h2>
+    <form class="admin-filters" method="get" action="/admin">
+      <div class="field">
+        <label for="filter-status">Status</label>
+        <select id="filter-status" name="status">
+          <option value="">All statuses</option>
+          <% ['pending', 'confirmed', 'completed', 'cancelled'].forEach(function (s) { %>
+            <option value="<%= s %>" <%= filters.status === s ? 'selected' : '' %>><%= STATUS_META[s].label %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="field">
+        <label for="filter-date">Date</label>
+        <input id="filter-date" type="date" name="date" value="<%= filters.date %>">
+      </div>
+      <button class="btn btn--primary btn--sm" type="submit">Apply</button>
+      <% if (filters.status || filters.date) { %>
+        <a class="admin-link-btn" href="/admin">Clear</a>
+      <% } %>
+    </form>
+  </div>
+
+  <% if (!appointments.length) { %>
+    <p class="admin-empty">No appointment requests match this filter yet. New requests from the
+      website will appear here immediately.</p>
+  <% } else { %>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th scope="col">Reference</th>
+            <th scope="col">Patient</th>
+            <th scope="col">Requested care</th>
+            <th scope="col">Preferred</th>
+            <th scope="col">Received</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% appointments.forEach(function (a) { %>
+            <tr>
+              <td>
+                <strong><%= a.reference %></strong>
+                <span class="muted">#<%= a.id %></span>
+              </td>
+              <td>
+                <strong><%= a.name %></strong>
+                <a class="muted" href="tel:<%= a.phone.replace(/[^\d+]/g, '') %>"><%= a.phone %></a>
+                <% if (a.email) { %><span class="muted"><%= a.email %></span><% } %>
+              </td>
+              <td>
+                <strong><%= a.service || '—' %></strong>
+                <span class="muted"><%= a.dentist || 'No preference' %></span>
+                <% if (a.notes) { %>
+                  <details>
+                    <summary>Notes</summary>
+                    <p><%= a.notes %></p>
+                  </details>
+                <% } %>
+              </td>
+              <td>
+                <strong><%= prettyDate(a.date) %></strong>
+                <span class="muted"><%= prettyTime(a.time) %></span>
+              </td>
+              <td><span class="muted"><%= a.created_at %></span></td>
+              <td>
+                <span class="badge badge--<%= STATUS_META[a.status] ? STATUS_META[a.status].tone : 'pending' %>">
+                  <%= STATUS_META[a.status] ? STATUS_META[a.status].label : a.status %>
+                </span>
+                <form class="admin-status" method="post" action="/admin/appointments/<%= a.id %>/status">
+                  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                  <input type="hidden" name="redirect" value="/admin<%= filters.status ? '?status=' + filters.status : '' %><%= filters.date ? (filters.status ? '&' : '?') + 'date=' + filters.date : '' %>">
+                  <label class="sr-only" for="status-<%= a.id %>">Status for <%= a.name %></label>
+                  <select id="status-<%= a.id %>" name="status">
+                    <% ['pending', 'confirmed', 'completed', 'cancelled'].forEach(function (s) { %>
+                      <option value="<%= s %>" <%= a.status === s ? 'selected' : '' %>><%= STATUS_META[s].label %></option>
+                    <% }); %>
+                  </select>
+                  <button type="submit">Save</button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/foot') %>

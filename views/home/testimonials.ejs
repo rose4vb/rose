@@ -1,0 +1,51 @@
+<section class="section stories" aria-labelledby="stories-title">
+  <div class="container stories__inner">
+    <div class="stories__head">
+      <p class="eyebrow">Patient stories</p>
+      <h2 class="section-title" id="stories-title">Smiles<br><em>They Love</em></h2>
+      <p class="stories__lede">Real experiences from our valued patients — the nervous ones, the curious
+        ones, and the ones who now arrive early.</p>
+
+      <div class="stories__controls">
+        <button class="circle-btn" type="button" data-carousel-prev aria-label="Previous patient story">
+          <%- icon('chevron-left') %>
+        </button>
+        <button class="circle-btn" type="button" data-carousel-next aria-label="Next patient story">
+          <%- icon('chevron-right') %>
+        </button>
+        <span class="stories__count" aria-hidden="true">
+          <span data-carousel-current>1</span><span class="stories__count-sep">/</span><span data-carousel-total><%= testimonials.length %></span>
+        </span>
+      </div>
+
+      <p class="stories__disclaimer">
+        <%- icon('leaf') %>
+        <span><strong>Sample content.</strong> These stories are illustrative placeholders and will be
+          replaced with verified reviews from real patients.</span>
+      </p>
+    </div>
+
+    <div class="stories__viewport" data-carousel tabindex="0" role="region" aria-label="Patient stories carousel">
+      <div class="stories__track" data-carousel-track>
+        <% testimonials.forEach(function (t, i) { %>
+          <article class="story-card" aria-roledescription="slide" aria-label="Story <%= i + 1 %> of <%= testimonials.length %>">
+            <div class="story-card__top">
+              <span class="story-card__avatar">
+                <img src="<%= t.avatar %>" alt="" width="64" height="64" loading="lazy">
+              </span>
+              <span class="story-card__sample">Sample</span>
+              <span class="story-card__mark" aria-hidden="true"><%- icon('quote') %></span>
+            </div>
+            <blockquote class="story-card__quote"><%= t.quote %></blockquote>
+            <div class="story-card__foot">
+              <span class="stars" aria-label="<%= t.rating %> out of 5 stars">
+                <% for (let s = 0; s < t.rating; s++) { %><%- icon('star') %><% } %>
+              </span>
+              <p class="story-card__name"><%= t.name %> <span><%= t.treatment %></span></p>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+<dialog class="lightbox" data-lightbox-dialog aria-label="Photograph viewer">
+  <div class="lightbox__frame">
+    <button class="lightbox__close" type="button" data-lightbox-close aria-label="Close photograph viewer">
+      <%- icon('close') %>
+    </button>
+    <img data-lightbox-img src="" alt="">
+    <div class="lightbox__caption">
+      <p class="lightbox__title" data-lightbox-title></p>
+      <p class="lightbox__text" data-lightbox-text></p>
+    </div>
+    <div class="lightbox__nav">
+      <button type="button" class="lightbox__arrow" data-lightbox-prev aria-label="Previous photograph"><%- icon('chevron-left') %></button>
+      <span class="lightbox__count" data-lightbox-count></span>
+      <button type="button" class="lightbox__arrow" data-lightbox-next aria-label="Next photograph"><%- icon('chevron-right') %></button>
+    </div>
+  </div>
+</dialog>

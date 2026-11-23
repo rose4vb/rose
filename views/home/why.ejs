@@ -1,0 +1,47 @@
+<section class="section why" aria-labelledby="why-title">
+  <div class="container">
+    <div class="why__head">
+      <div>
+        <p class="eyebrow">Why Sakura Smile</p>
+        <h2 class="section-title" id="why-title">Designed for the way<br><em>you actually feel.</em></h2>
+      </div>
+      <p class="why__lede">A dental visit should lower your shoulders, not raise them. Everything here — the
+        light, the pace, the way we explain things — is built around that idea.</p>
+    </div>
+
+    <div class="why__body">
+      <figure class="why__figure">
+        <img src="<%= IMG.room %>" alt="A quiet, light-filled treatment room at the clinic"
+             width="880" height="1100" loading="lazy">
+        <figcaption>
+          <span class="why__figure-mark"><%- icon('quote') %></span>
+          <p>No conveyor belt. Appointments are booked with generous time, because good care takes time.</p>
+        </figcaption>
+      </figure>
+
+      <ol class="why__list">
+        <% reasons.slice(0, 4).forEach(function (reason, i) { %>
+          <li class="why__item reveal">
+            <span class="why__num"><%= String(i + 1).padStart(2, '0') %></span>
+            <div class="why__item-body">
+              <h3><%- icon(reason.icon) %><%= reason.title %></h3>
+              <p><%= reason.text %></p>
+            </div>
+          </li>
+        <% }); %>
+      </ol>
+    </div>
+
+    <ul class="why__strip">
+      <% reasons.slice(4).forEach(function (reason) { %>
+        <li>
+          <span class="why__strip-icon"><%- icon(reason.icon) %></span>
+          <div>
+            <h3><%= reason.title %></h3>
+            <p><%= reason.text %></p>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</section>

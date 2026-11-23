@@ -1,0 +1,22 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="state-page">
+    <div class="state-page__inner">
+      <svg class="state-page__blossom" viewBox="-42 -42 84 84" aria-hidden="true"><use href="#sakura"/></svg>
+      <p class="state-page__code">500</p>
+      <h1>Something went quiet at our end.</h1>
+      <p><%= message %></p>
+      <div class="hero__actions" style="justify-content: center;">
+        <a class="btn btn--primary" href="/">Return home</a>
+        <a class="btn btn--ghost" href="tel:<%= clinic.phoneHref %>">Call the clinic</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<%
+  const today = new Date().toISOString().slice(0, 10);
+  const oldData = (typeof old !== 'undefined' && old) ? old : {};
+  const errData = (typeof errors !== 'undefined' && errors) ? errors : {};
+  const successData = (typeof success !== 'undefined') ? success : null;
+  const val = (key) => (oldData[key] ? oldData[key] : '');
+  const err = (key) => (errData[key] ? errData[key] : '');
+%>
+<div class="booking-card" data-booking>
+  <div class="booking-card__head">
+    <p class="eyebrow">Request a visit</p>
+    <h3 class="booking-card__title">Tell us when suits you</h3>
+    <p class="booking-card__note">Every request is read by a person. We reply within one working day and confirm by phone before anything is final.</p>
+  </div>
+
+  <div class="booking-success" role="status" data-booking-success <%= successData ? '' : 'hidden' %>>
+    <span class="booking-success__mark"><%- icon('check') %></span>
+    <h4>Request received</h4>
+    <p>Thank you<%= successData && successData.name ? ', ' + successData.name : '' %>. Your reference is
+      <strong data-success-ref><%= successData ? successData.reference : '' %></strong>.</p>
+    <p class="booking-success__status">This is a <em>request</em>, not yet a confirmed appointment — our team will call you to agree the time.</p>
+  </div>
+
+  <form class="booking-form" method="post" action="/book" novalidate data-booking-form <%= successData ? "hidden" : "" %>>
+    <div class="form-alert" role="alert" data-form-alert hidden></div>
+
+    <div class="field">
+      <label for="bk-name">Full name <span class="req" aria-hidden="true">*</span></label>
+      <input id="bk-name" name="name" type="text" autocomplete="name" required
+             value="<%= val('name') %>" aria-describedby="bk-name-error"
+             <%= err('name') ? 'aria-invalid="true"' : '' %>>
+      <p class="field-error" id="bk-name-error" data-error-for="name"><%= err('name') %></p>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="bk-phone">Phone number <span class="req" aria-hidden="true">*</span></label>
+        <input id="bk-phone" name="phone" type="tel" autocomplete="tel" required inputmode="tel"
+               placeholder="+44 7700 900 000" value="<%= val('phone') %>"
+               aria-describedby="bk-phone-error" <%= err('phone') ? 'aria-invalid="true"' : '' %>>
+        <p class="field-error" id="bk-phone-error" data-error-for="phone"><%= err('phone') %></p>
+      </div>
+      <div class="field">
+        <label for="bk-email">Email <span class="field-hint">optional</span></label>
+        <input id="bk-email" name="email" type="email" autocomplete="email"
+               value="<%= val('email') %>" aria-describedby="bk-email-error"
+               <%= err('email') ? 'aria-invalid="true"' : '' %>>
+        <p class="field-error" id="bk-email-error" data-error-for="email"><%= err('email') %></p>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="bk-service">Preferred treatment <span class="req" aria-hidden="true">*</span></label>
+        <div class="select-wrap">
+          <select id="bk-service" name="service" required aria-describedby="bk-service-error"
+                  <%= err('service') ? 'aria-invalid="true"' : '' %>>
+            <option value="">Please choose…</option>
+            <% booking.services.forEach(function (s) { %>
+              <option value="<%= s.name %>" <%= val('service') === s.name ? 'selected' : '' %>><%= s.name %></option>
+            <% }); %>
+            <option value="Not sure yet" <%= val('service') === 'Not sure yet' ? 'selected' : '' %>>Not sure yet — I would like advice</option>
+          </select>
+          <%- icon('chevron-down') %>
+        </div>
+        <p class="field-error" id="bk-service-error" data-error-for="service"><%= err('service') %></p>
+      </div>
+      <div class="field">
+        <label for="bk-dentist">Preferred dentist <span class="field-hint">optional</span></label>
+        <div class="select-wrap">
+          <select id="bk-dentist" name="dentist">
+            <option value="">No preference</option>
+            <% booking.dentists.forEach(function (d) { %>
+              <option value="<%= d %>" <%= val('dentist') === d ? 'selected' : '' %>><%= d %></option>
+            <% }); %>
+          </select>
+          <%- icon('chevron-down') %>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="bk-date">Preferred date <span class="req" aria-hidden="true">*</span></label>
+        <input id="bk-date" name="date" type="date" required min="<%= today %>"
+               value="<%= val('date') %>" aria-describedby="bk-date-error"
+               <%= err('date') ? 'aria-invalid="true"' : '' %>>
+        <p class="field-error" id="bk-date-error" data-error-for="date"><%= err('date') %></p>
+      </div>
+      <div class="field">
+        <label for="bk-time">Preferred time <span class="req" aria-hidden="true">*</span></label>
+        <div class="select-wrap">
+          <select id="bk-time" name="time" required aria-describedby="bk-time-error"
+                  <%= err('time') ? 'aria-invalid="true"' : '' %>>
+            <option value="">Please choose…</option>
+            <% booking.slots.forEach(function (slot) { %>
+              <option value="<%= slot.value %>" <%= val('time') === slot.value ? 'selected' : '' %>><%= slot.label %></option>
+            <% }); %>
+          </select>
+          <%- icon('chevron-down') %>
+        </div>
+        <p class="field-error" id="bk-time-error" data-error-for="time"><%= err('time') %></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="bk-notes">Anything we should know? <span class="field-hint">optional</span></label>
+      <textarea id="bk-notes" name="notes" rows="3" maxlength="1000"
+                placeholder="Nervous patient, accessibility needs, a particular concern…"><%= val('notes') %></textarea>
+    </div>
+
+    <button class="btn btn--primary btn--block booking-form__submit" type="submit" data-submit>
+      <span class="btn__label">Request an appointment</span>
+      <span class="btn__spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="booking-form__fineprint">
+      <%- icon('lock') %> Your details are used only to arrange your care. No marketing, ever.
+    </p>
+  </form>
+</div>

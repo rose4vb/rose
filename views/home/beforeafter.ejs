@@ -1,0 +1,57 @@
+<section class="section smiles" aria-labelledby="smiles-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__lead">
+        <p class="eyebrow">The smile archive</p>
+        <h2 class="section-title" id="smiles-title">Transformations,<br><em>quietly made.</em></h2>
+      </div>
+      <div class="smiles__aside">
+        <p>Slide to compare. These are demonstration images — real patient photography will replace them
+          only with written consent.</p>
+        <div class="chips" role="group" aria-label="Filter smile cases by treatment">
+          <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+          <% Array.from(new Set(cases.map(function (c) { return c.category; }))).forEach(function (cat) { %>
+            <button class="chip" type="button" data-filter="<%= cat %>" aria-pressed="false"><%= cat %></button>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+
+    <div class="cases" data-cases>
+      <% cases.forEach(function (c, i) { %>
+        <article class="case" data-category="<%= c.category %>">
+          <div class="compare" data-compare style="--pos:50%">
+            <img class="compare__img compare__img--after" src="<%= c.after %>"
+                 alt="After treatment — demonstration image for <%= c.title %>"
+                 width="900" height="700" loading="lazy">
+            <div class="compare__before">
+              <img class="compare__img" src="<%= c.before %>" alt="" width="900" height="700" loading="lazy">
+            </div>
+            <span class="compare__tag compare__tag--before">Before</span>
+            <span class="compare__tag compare__tag--after">After</span>
+            <div class="compare__handle" aria-hidden="true">
+              <span class="compare__grip">
+                <%- icon('chevron-left') %><%- icon('chevron-right') %>
+              </span>
+            </div>
+            <input class="compare__range" type="range" min="0" max="100" value="50" step="1"
+                   aria-label="Reveal before and after for <%= c.title %>" data-compare-range>
+          </div>
+          <div class="case__foot">
+            <div>
+              <h3><%= c.title %></h3>
+              <p><%= c.category %></p>
+            </div>
+            <span class="case__note"><%= c.note %></span>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+
+    <p class="smiles__note">
+      <%- icon('leaf') %>
+      <span>All before-and-after images are clearly labelled demonstration content. No clinical results are claimed.</span>
+      <a class="link-arrow" href="/smile-gallery">Visit the smile gallery <%- icon('arrow-right') %></a>
+    </p>
+  </div>
+</section>

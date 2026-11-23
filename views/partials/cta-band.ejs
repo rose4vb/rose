@@ -1,0 +1,13 @@
+<section class="cta-band">
+  <div class="container cta-band__inner">
+    <div>
+      <p class="eyebrow eyebrow--light">Book your visit</p>
+      <h2><%- typeof ctaTitle !== 'undefined' ? ctaTitle : 'Your smile,<br><em>in good hands.</em>' %></h2>
+      <p><%- typeof ctaText !== 'undefined' ? ctaText : 'A consultation is a conversation first. Come and tell us what you would like to change.' %></p>
+    </div>
+    <div class="cta-band__actions">
+      <a class="btn btn--primary" href="/book"><%- icon('calendar') %><span>Book an appointment</span></a>
+      <a class="btn btn--ghost" href="tel:<%= clinic.phoneHref %>"><%- icon('phone') %><span><%= clinic.phone %></span></a>
+    </div>
+  </div>
+</section>

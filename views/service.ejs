@@ -1,0 +1,164 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="service-hero">
+    <div class="container service-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <a href="/services">Services</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page"><%= service.name %></span>
+        </nav>
+
+        <p class="eyebrow">Treatment</p>
+        <h1 class="service-hero__title"><%= service.name %></h1>
+        <p class="service-hero__tagline"><%= service.tagline %></p>
+        <p class="service-hero__lede"><%= service.blurb %></p>
+
+        <div class="meta-chips">
+          <span class="meta-chip"><%- icon('sparkle') %><%= service.price %></span>
+          <span class="meta-chip"><%- icon('clock') %><%= service.duration %></span>
+          <span class="meta-chip"><%- icon('shield') %>Gentle by default</span>
+        </div>
+
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="/book"><%- icon('calendar') %><span>Book this treatment</span></a>
+          <a class="btn btn--ghost" href="tel:<%= clinic.phoneHref %>"><%- icon('phone') %><span>Ask a question</span></a>
+        </div>
+      </div>
+
+      <div class="service-hero__visual">
+        <span class="service-hero__blush" aria-hidden="true"></span>
+        <div class="service-hero__frame">
+          <img src="<%= service.image %>" alt="<%= service.name %> at Sakura Smile"
+               width="900" height="1000" fetchpriority="high">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="service-body">
+    <div class="container service-body__grid">
+      <div class="prose-block">
+        <h2>About this treatment</h2>
+        <% service.description.split('\n\n').forEach(function (para) { %>
+          <p><%= para %></p>
+        <% }); %>
+
+        <h2 style="margin-top: 2.6rem;">How it works</h2>
+        <ol class="steps-list">
+          <% service.steps.forEach(function (step, i) { %>
+            <li class="step">
+              <span class="step__num"><%= String(i + 1).padStart(2, '0') %></span>
+              <div>
+                <h3><%= step.title %></h3>
+                <p><%= step.text %></p>
+              </div>
+            </li>
+          <% }); %>
+        </ol>
+
+        <% if (service.worry && service.worry.q) { %>
+          <div class="worry-panel">
+            <button class="worry-panel__toggle" type="button" aria-expanded="false"
+                    aria-controls="worry-panel" data-worry-toggle>
+              <span><%= service.worry.q %></span>
+              <%- icon('plus') %>
+            </button>
+            <div class="worry-panel__body" id="worry-panel" hidden>
+              <p><%= service.worry.a %></p>
+            </div>
+          </div>
+        <% } %>
+
+        <div class="service-faq">
+          <h2>Questions we are asked</h2>
+          <div class="accordion" data-accordion>
+            <% service.faqs.forEach(function (item, i) { %>
+              <div class="faq-item">
+                <h3 class="faq-item__heading">
+                  <button class="faq-item__button" type="button" id="svc-faq-btn-<%= i %>"
+                          aria-expanded="false" aria-controls="svc-faq-panel-<%= i %>" data-faq>
+                    <span class="faq-item__q"><%= item.q %></span>
+                    <span class="faq-item__icon" aria-hidden="true"><span></span><span></span></span>
+                  </button>
+                </h3>
+                <div class="faq-item__panel" id="svc-faq-panel-<%= i %>" role="region"
+                     aria-labelledby="svc-faq-btn-<%= i %>" hidden>
+                  <p><%= item.a %></p>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+
+      <aside class="service-body__aside">
+        <div class="aside-card">
+          <p class="aside-card__title">At a glance</p>
+          <div class="aside-card__row"><span>Starting price</span><span><%= service.price %></span></div>
+          <div class="aside-card__row"><span>Typical visit</span><span><%= service.duration %></span></div>
+          <div class="aside-card__row"><span>Consultation</span><span>Included</span></div>
+          <a class="btn btn--primary btn--block" href="/book">Request an appointment</a>
+        </div>
+
+        <div class="aside-card">
+          <p class="aside-card__title">What is included</p>
+          <ul class="benefit-list">
+            <% service.benefits.forEach(function (benefit) { %>
+              <li><%- icon('check') %><span><%= benefit %></span></li>
+            <% }); %>
+          </ul>
+        </div>
+
+        <div class="aside-card">
+          <p class="aside-card__title">Speak to us</p>
+          <div class="aside-card__row"><span>Reception</span><span><a href="tel:<%= clinic.phoneHref %>"><%= clinic.phone %></a></span></div>
+          <div class="aside-card__row"><span>Email</span><span><a href="mailto:<%= clinic.email %>">Email us</a></span></div>
+          <div class="aside-card__row"><span>WhatsApp</span><span><a href="https://wa.me/<%= clinic.whatsapp %>" target="_blank" rel="noopener noreferrer">Message</a></span></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section related">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__lead">
+          <p class="eyebrow">Related care</p>
+          <h2 class="section-title">Often considered<br><em>together.</em></h2>
+        </div>
+        <p class="section-head__aside-text">Treatments that pair well with this one. We will always
+          explain why before adding anything to your plan.</p>
+      </div>
+
+      <div class="related__grid">
+        <% related.forEach(function (item) { %>
+          <article class="related-card">
+            <a href="/services/<%= item.slug %>" aria-hidden="true" tabindex="-1">
+              <img src="<%= item.image %>" alt="" width="600" height="375" loading="lazy">
+            </a>
+            <div class="related-card__body">
+              <h3><a href="/services/<%= item.slug %>"><%= item.name %></a></h3>
+              <p><%= item.blurb %></p>
+              <span class="link-arrow">Read more <%- icon('arrow-right') %></span>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta-band', {
+    ctaTitle: 'Ready when<br><em>you are.</em>',
+    ctaText: 'Request a visit for ' + service.name.toLowerCase() + ' and we will confirm by phone within one working day.'
+  }) %>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

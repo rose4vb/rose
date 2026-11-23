@@ -1,0 +1,92 @@
+<%- include('partials/head', { pageTitle: 'Patient stories', pageMeta: 'Sample and verified reviews shown on the site' }) %>
+
+<% const editing = editId ? testimonials.find(function (t) { return String(t.id) === String(editId); }) : null; %>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2><%= editing ? 'Edit story' : 'Add a patient story' %></h2>
+    <% if (editing) { %><a class="admin-link-btn" href="/admin/testimonials">Cancel edit</a><% } %>
+  </div>
+  <div class="admin-card__body">
+    <form class="admin-form" method="post" action="/admin/testimonials/save">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <% if (editing) { %><input type="hidden" name="id" value="<%= editing.id %>"><% } %>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="t-name">Patient name <span class="req">*</span></label>
+          <input id="t-name" name="name" type="text" required value="<%= editing ? editing.name : '' %>">
+        </div>
+        <div class="field">
+          <label for="t-treatment">Treatment</label>
+          <input id="t-treatment" name="treatment" type="text" value="<%= editing ? editing.treatment : '' %>">
+        </div>
+      </div>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="t-rating">Rating</label>
+          <select id="t-rating" name="rating">
+            <% [5,4,3,2,1].forEach(function (r) { %>
+              <option value="<%= r %>" <%= editing && editing.rating === r ? 'selected' : '' %>><%= r %> stars</option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="field">
+          <label for="t-avatar">Avatar image URL</label>
+          <input id="t-avatar" name="avatar" type="url" value="<%= editing ? editing.avatar : '' %>">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="t-quote">Quote <span class="req">*</span></label>
+        <textarea id="t-quote" name="quote" rows="4" required><%= editing ? editing.quote : '' %></textarea>
+        <p class="admin-help">Publish only with written patient consent. Never invent a review.</p>
+      </div>
+
+      <label class="admin-toggle">
+        <input type="checkbox" name="published" value="1" <%= !editing || editing.published ? 'checked' : '' %>>
+        Published on the website
+      </label>
+
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit"><%= editing ? 'Save changes' : 'Add story' %></button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="admin-card">
+  <div class="admin-card__head"><h2><%= testimonials.length %> stories</h2></div>
+  <div class="admin-card__body">
+    <% if (!testimonials.length) { %>
+      <p class="admin-empty">No patient stories yet.</p>
+    <% } else { %>
+      <ul class="admin-list">
+        <% testimonials.forEach(function (t) { %>
+          <li class="admin-list__item">
+            <div>
+              <h3><%= t.name %> <span class="badge badge--<%= t.published ? 'confirmed' : 'cancelled' %>"><%= t.published ? 'Published' : 'Hidden' %></span></h3>
+              <p><%= t.treatment %> · <%= t.rating %> stars</p>
+              <p style="margin-top:.35rem;">“<%= t.quote %>”</p>
+            </div>
+            <div class="admin-actions">
+              <a class="admin-link-btn" href="/admin/testimonials?edit=<%= t.id %>">Edit</a>
+              <form method="post" action="/admin/testimonials/<%= t.id %>/toggle">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="admin-link-btn" type="submit"><%= t.published ? 'Hide' : 'Publish' %></button>
+              </form>
+              <form method="post" action="/admin/testimonials/<%= t.id %>/delete"
+                    data-confirm="Delete this story from <%= t.name %>?">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button class="admin-danger" type="submit">Delete</button>
+              </form>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/foot') %>

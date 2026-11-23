@@ -1,0 +1,21 @@
+{
+  "name": "sakura-smile-dental",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sakura Smile Dental Clinic — a calm, editorial dental clinic website with appointment booking.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.5.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1"
+  }
+}

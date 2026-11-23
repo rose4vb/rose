@@ -1,0 +1,184 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page">About Us</span>
+        </nav>
+        <p class="eyebrow">Our story</p>
+        <h1 class="page-hero__title">A quieter kind<br><em>of dentistry.</em></h1>
+        <p class="page-hero__lede">Sakura Smile began with a simple frustration: dental care that felt
+          hurried, clinical and slightly impersonal. We built the opposite.</p>
+      </div>
+      <aside class="page-hero__aside">
+        <p>Established in Marylebone in 2014. Independent, clinician-owned, and deliberately small
+          enough that your dentist remembers your name.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="about-story">
+    <div class="container about-story__inner">
+      <figure class="about-story__figure">
+        <img src="<%= IMG.lounge %>" alt="The quiet reading lounge at Sakura Smile"
+             width="900" height="1100" loading="lazy">
+      </figure>
+      <div class="about-story__copy">
+        <p class="eyebrow">Since 2014</p>
+        <h2>Built around<br><em>the person in the chair.</em></h2>
+        <p>Ren Takahashi opened Sakura Smile after a decade split between Tokyo and London. He wanted
+          a practice where the appointment was long enough to think in, where the diagnosis was
+          explained before the treatment was priced, and where nobody was ever sold a smile they did
+          not ask for.</p>
+        <p>Twelve years later the clinic is still independent and still small. Three clinicians, one
+          hygienist and a reception team who know the difference between a check-up and a check-in.
+          We invested early in digital scanning and 3D planning — not because technology is
+          impressive, but because it makes treatment calmer and more predictable.</p>
+        <p>The name comes from the cherry blossom outside the original surgery window. It still
+          flowers every April, and we still stop to look at it.</p>
+        <p class="about-signature" style="font-family: var(--font-display); font-style: italic; font-size: 1.5rem; color: var(--rose);">
+          Ren Takahashi
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <figure class="about-quote">
+    <blockquote>“Good dentistry is mostly <em>listening</em>. The drilling is the easy part.”</blockquote>
+    <figcaption>Dr. Ren Takahashi, Principal Dentist</figcaption>
+  </figure>
+
+  <section class="section dentist" id="team" aria-labelledby="about-dentist-title">
+    <div class="container dentist__inner">
+      <div class="dentist__visual">
+        <span class="dentist__blush" aria-hidden="true"></span>
+        <figure class="dentist__frame">
+          <img src="<%= dentist.image %>" alt="<%= dentist.name %> in the clinic"
+               width="760" height="950" loading="lazy">
+        </figure>
+        <blockquote class="dentist__pull">
+          <p>“I liked the precision of it. I stayed because of the people.”</p>
+        </blockquote>
+      </div>
+
+      <div class="dentist__copy">
+        <p class="eyebrow">Principal dentist</p>
+        <h2 class="section-title" id="about-dentist-title"><%= dentist.name %></h2>
+        <p class="dentist__name"><%= dentist.credentials %></p>
+        <p><%= dentist.bio %></p>
+        <p style="margin-top: 1rem;"><%= dentist.philosophy %></p>
+
+        <dl class="stats">
+          <% dentist.stats.forEach(function (stat) { %>
+            <div class="stat">
+              <dt class="stat__icon"><%- icon(stat.icon) %><span class="sr-only"><%= stat.label %></span></dt>
+              <dd>
+                <span class="stat__value"><%= stat.value %></span>
+                <span class="stat__label"><%= stat.label %></span>
+              </dd>
+            </div>
+          <% }); %>
+        </dl>
+
+        <p class="aside-card__title" style="margin-bottom: 0.8rem;">Education &amp; qualifications</p>
+        <ul class="dentist__education">
+          <% dentist.education.forEach(function (line) { %>
+            <li><%- icon('check') %><span><%= line %></span></li>
+          <% }); %>
+        </ul>
+
+        <a class="btn btn--outline" href="/book">Book with Dr. Ren <%- icon('arrow-right') %></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section team">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__lead">
+          <p class="eyebrow">The team</p>
+          <h2 class="section-title">Small by design.<br><em>Careful by habit.</em></h2>
+        </div>
+        <p class="section-head__aside-text">Everyone you meet here works from the same notes, the same
+          plan and the same standard of sterilisation.</p>
+      </div>
+
+      <div class="team__grid">
+        <% team.forEach(function (member) { %>
+          <article class="team-card">
+            <div class="team-card__media">
+              <img src="<%= member.image %>" alt="<%= member.name %>, <%= member.role %>"
+                   width="640" height="700" loading="lazy">
+            </div>
+            <div class="team-card__body">
+              <span class="team-card__role"><%= member.role %></span>
+              <h3><%= member.name %></h3>
+              <p><%= member.bio %></p>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background: var(--ivory);">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__lead">
+          <p class="eyebrow">What we stand for</p>
+          <h2 class="section-title">Four promises,<br><em>kept quietly.</em></h2>
+        </div>
+      </div>
+      <ul class="why__strip" style="margin-top: 0; border-top: 0; padding-top: 0;">
+        <% reasons.slice(0, 4).forEach(function (reason) { %>
+          <li>
+            <span class="why__strip-icon"><%- icon(reason.icon) %></span>
+            <div>
+              <h3><%= reason.title %></h3>
+              <p><%= reason.text %></p>
+            </div>
+          </li>
+        <% }); %>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section clinic-strip">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__lead">
+          <p class="eyebrow">The space</p>
+          <h2 class="section-title">Warm light,<br><em>quiet rooms.</em></h2>
+        </div>
+        <p class="section-head__aside-text">No clinical blue, no fluorescent glare. Just a calm room
+          and a chair that reclines properly.</p>
+      </div>
+      <div class="gallery__grid">
+        <% gallery.forEach(function (shot, i) { %>
+          <figure class="gallery__item gallery__item--<%= i % 3 %>" style="cursor: default;">
+            <img src="<%= shot.image %>" alt="<%= shot.title %>" width="800" height="1000" loading="lazy">
+            <figcaption class="gallery__meta" style="opacity: 1; transform: none;">
+              <span class="gallery__category"><%= shot.category %></span>
+              <span class="gallery__title"><%= shot.title %></span>
+            </figcaption>
+          </figure>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta-band', {
+    ctaTitle: 'Come and<br><em>see for yourself.</em>',
+    ctaText: 'A first visit is a conversation, an examination and a written plan. Nothing more.'
+  }) %>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

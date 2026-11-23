@@ -1,0 +1,27 @@
+<section class="section appointment" id="appointment" aria-labelledby="appointment-title">
+  <div class="container appointment__inner">
+    <div class="appointment__visual">
+      <figure class="appointment__figure">
+        <img src="<%= IMG.talk %>" alt="A clinician talking with a patient in a calm consultation room"
+             width="880" height="1100" loading="lazy">
+      </figure>
+      <span class="appointment__jp" lang="ja" aria-hidden="true">ご予約</span>
+      <div class="appointment__note">
+        <p class="appointment__note-label">Today at the clinic</p>
+        <p class="appointment__note-hours">Open until 6:00 pm</p>
+        <hr>
+        <p><%- icon('pin') %><%= clinic.address %></p>
+        <p><%- icon('phone') %><a href="tel:<%= clinic.phoneHref %>"><%= clinic.phone %></a></p>
+      </div>
+    </div>
+
+    <div class="appointment__copy">
+      <p class="eyebrow">Book your visit</p>
+      <h2 class="section-title" id="appointment-title">Schedule Your<br><em>Appointment</em></h2>
+      <p class="appointment__lede">Take the first step toward a healthier, more confident smile.
+        Tell us roughly when suits you and we will find a time that genuinely does.</p>
+
+      <%- include('../partials/booking-form') %>
+    </div>
+  </div>
+</section>

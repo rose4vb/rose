@@ -1,0 +1,132 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<% const isPrivacy = doc === 'privacy'; %>
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page"><%= isPrivacy ? 'Privacy Policy' : 'Terms & Conditions' %></span>
+        </nav>
+        <p class="eyebrow"><%= isPrivacy ? 'Your information' : 'The small print' %></p>
+        <h1 class="page-hero__title"><%= isPrivacy ? 'Privacy' : 'Terms &' %><br><em><%= isPrivacy ? 'policy.' : 'conditions.' %></em></h1>
+        <p class="page-hero__lede"><%= isPrivacy
+          ? 'What we collect, why we collect it, and how you can ask us to stop.'
+          : 'The terms that apply to using this website and requesting an appointment.' %></p>
+      </div>
+      <aside class="page-hero__aside">
+        <p>This page is a plain-language summary written for a demonstration clinic. It should be
+          reviewed by your own legal adviser before the site goes live.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="legal">
+    <div class="container legal__inner">
+      <nav class="legal__nav" aria-label="Legal documents">
+        <a href="/privacy" <%= isPrivacy ? 'aria-current="page" style="color: var(--ink); font-weight: 600;"' : '' %>>Privacy policy</a>
+        <a href="/terms" <%= !isPrivacy ? 'aria-current="page" style="color: var(--ink); font-weight: 600;"' : '' %>>Terms &amp; conditions</a>
+        <a href="/contact">Contact the clinic</a>
+      </nav>
+
+      <div class="legal__body">
+        <p class="legal__updated">Last updated 23 November 2026</p>
+
+        <% if (isPrivacy) { %>
+          <h2>Who we are</h2>
+          <p>Sakura Smile Dental Clinic, 24 Wimpole Street, Marylebone, London W1G 8GP, is the data
+            controller for the information described on this page. You can reach us at
+            <a href="mailto:<%= clinic.email %>"><%= clinic.email %></a> or on <%= clinic.phone %>.</p>
+
+          <h2>What we collect</h2>
+          <ul>
+            <li><strong>Appointment requests:</strong> your name, phone number, optional email address,
+              preferred treatment, preferred dentist, preferred date and time, and any notes you add.</li>
+            <li><strong>Contact messages:</strong> your name, optional email and phone number, and the
+              message you send.</li>
+            <li><strong>Clinical records:</strong> created only once you become a patient, and held
+              separately under our clinical records policy.</li>
+            <li><strong>Technical data:</strong> the minimum needed to serve the site securely, such as
+              a session cookie for staff login.</li>
+          </ul>
+
+          <h2>Why we collect it</h2>
+          <p>We use your details to respond to your request, arrange and confirm your appointment, and
+            keep a record of the care we provide. We do not sell your data, and we do not use it for
+            marketing without your separate consent.</p>
+
+          <h2>How long we keep it</h2>
+          <p>Appointment requests that do not become appointments are kept for twelve months and then
+            deleted. Clinical records are kept in line with UK dental record-keeping requirements.</p>
+
+          <h2>Who can see it</h2>
+          <p>Only clinic staff who need it to arrange your care. We use a small number of service
+            providers (hosting, email) who process data on our behalf under written agreements.</p>
+
+          <h2>Your rights</h2>
+          <p>You can ask for a copy of your information, ask us to correct it, or ask us to delete
+            anything that is not part of a clinical record. Email
+            <a href="mailto:<%= clinic.email %>"><%= clinic.email %></a> and we will respond within one
+            month.</p>
+
+          <h2>Cookies</h2>
+          <p>This website sets one cookie, and only for clinic staff: a session cookie that keeps an
+            administrator signed in to the management area. Visitors who are not signed in receive no
+            tracking cookies, and we do not run advertising or analytics pixels.</p>
+
+          <h2>Complaints</h2>
+          <p>If you are unhappy with how we have handled your information, please tell us first. You
+            also have the right to complain to the Information Commissioner’s Office (ICO).</p>
+        <% } else { %>
+          <h2>Using this website</h2>
+          <p>This website provides information about Sakura Smile Dental Clinic and allows you to
+            request appointments. By using it you agree to these terms. The content is general
+            information, not clinical advice, and it does not replace an examination.</p>
+
+          <h2>Appointment requests</h2>
+          <p>Submitting the form creates a <strong>request</strong>, not a confirmed appointment. A
+            booking becomes confirmed only when a member of our team has spoken with you and sent a
+            written confirmation. Please do not attend until you have that confirmation.</p>
+
+          <h2>Demonstration content</h2>
+          <p>Photographs of before-and-after cases and patient stories on this site are clearly labelled
+            demonstration content. They are not real patients, and no clinical outcome is claimed or
+            implied. Real cases will be published only with written patient consent.</p>
+
+          <h2>Prices</h2>
+          <p>Prices shown are starting points and may change. Your written treatment plan is the
+            authoritative figure for your care.</p>
+
+          <h2>Cancellations</h2>
+          <p>We ask for at least 24 hours’ notice to change or cancel an appointment so the time can be
+            offered to someone else. Repeated late cancellations may incur a fee, which we will always
+            explain in advance.</p>
+
+          <h2>Emergencies</h2>
+          <p>This website is not an emergency service. If you have facial swelling affecting breathing
+            or swallowing, or significant trauma, call 999 or attend your nearest A&amp;E department.</p>
+
+          <h2>Intellectual property</h2>
+          <p>The design, text and imagery of this website belong to the clinic or its licensors and may
+            not be reproduced without permission.</p>
+
+          <h2>Liability</h2>
+          <p>We take care to keep the information accurate, but we do not warrant that the site will be
+            uninterrupted or error-free. Nothing in these terms limits liability for death or personal
+            injury caused by negligence.</p>
+
+          <h2>Governing law</h2>
+          <p>These terms are governed by the laws of England and Wales.</p>
+        <% } %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

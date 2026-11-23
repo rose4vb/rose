@@ -1,0 +1,76 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Begin your smile story</p>
+        <h2 class="footer__title">Care that feels<br><em>like a deep breath.</em></h2>
+      </div>
+      <div class="footer__cta-side">
+        <p>Book a consultation and we will take it from there — slowly, and at your pace.</p>
+        <a class="btn btn--light" href="/book"><%- icon('calendar') %><span>Book an appointment</span></a>
+      </div>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a class="brand brand--footer" href="/" aria-label="<%= clinic.name %> — home">
+          <span class="brand__mark"><%- logomark() %></span>
+          <span class="brand__text">
+            <span class="brand__name"><%= clinic.name %></span>
+            <span class="brand__sub"><%= clinic.subtitle %></span>
+          </span>
+        </a>
+        <p class="footer__blurb"><%= clinic.tagline %></p>
+        <div class="footer__social">
+          <a href="<%= clinic.social[0].href %>" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><%- icon('instagram') %></a>
+          <a href="<%= clinic.social[1].href %>" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><%- icon('facebook') %></a>
+          <a href="https://wa.me/<%= clinic.whatsapp %>" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><%- icon('whatsapp') %></a>
+        </div>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__heading">Explore</h3>
+        <ul class="footer__links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/services">Services</a></li>
+          <li><a href="/about">About the clinic</a></li>
+          <li><a href="/patient-stories">Patient stories</a></li>
+          <li><a href="/smile-gallery">Smile gallery</a></li>
+          <li><a href="/book">Book an appointment</a></li>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__heading">Treatments</h3>
+        <ul class="footer__links">
+          <% services.slice(0, 6).forEach(function (s) { %>
+            <li><a href="/services/<%= s.slug %>"><%= s.name %></a></li>
+          <% }); %>
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <h3 class="footer__heading">Visit</h3>
+        <ul class="footer__links footer__links--plain">
+          <li><a href="<%= clinic.mapLink %>" target="_blank" rel="noopener noreferrer"><%- icon('pin') %><span><%= clinic.address %></span></a></li>
+          <li><a href="tel:<%= clinic.phoneHref %>"><%- icon('phone') %><span><%= clinic.phone %></span></a></li>
+          <li><a href="mailto:<%= clinic.email %>"><%- icon('mail') %><span><%= clinic.email %></span></a></li>
+        </ul>
+        <ul class="footer__hours">
+          <% clinic.hours.forEach(function (h) { %>
+            <li><span><%= h.day %></span><span><%= h.time %></span></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© <%= year %> <%= clinic.name %> <%= clinic.subtitle %>. All rights reserved.</p>
+      <div class="footer__legal">
+        <a href="/privacy">Privacy policy</a>
+        <a href="/terms">Terms &amp; conditions</a>
+        <a href="/admin/login">Staff login</a>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,54 @@
+<%
+  const cOld = (typeof contactOld !== 'undefined' && contactOld) ? contactOld : {};
+  const cErr = (typeof contactErrors !== 'undefined' && contactErrors) ? contactErrors : {};
+  const cSent = (typeof contactSent !== 'undefined') ? contactSent : false;
+%>
+<form class="contact-form" method="post" action="/contact" novalidate data-contact-form>
+  <div class="contact-form__head">
+    <p class="eyebrow">Send a note</p>
+    <h3>Questions, records, or a hello</h3>
+  </div>
+
+  <div class="contact-success" role="status" data-contact-success <%= cSent ? '' : 'hidden' %>>
+    <span class="contact-success__mark"><%- icon('check') %></span>
+    <p>Thank you — your message is with reception. We reply within one working day.</p>
+  </div>
+
+  <div class="form-alert" role="alert" data-contact-alert hidden></div>
+
+  <div class="field-row">
+    <div class="field">
+      <label for="ct-name">Your name <span class="req" aria-hidden="true">*</span></label>
+      <input id="ct-name" name="name" type="text" autocomplete="name" required
+             value="<%= cOld.name || '' %>" aria-describedby="ct-name-error"
+             <%= cErr.name ? 'aria-invalid="true"' : '' %>>
+      <p class="field-error" id="ct-name-error" data-error-for="name"><%= cErr.name || '' %></p>
+    </div>
+    <div class="field">
+      <label for="ct-email">Email <span class="field-hint">or phone below</span></label>
+      <input id="ct-email" name="email" type="email" autocomplete="email"
+             value="<%= cOld.email || '' %>" aria-describedby="ct-email-error"
+             <%= cErr.email ? 'aria-invalid="true"' : '' %>>
+      <p class="field-error" id="ct-email-error" data-error-for="email"><%= cErr.email || '' %></p>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="ct-phone">Phone <span class="field-hint">optional</span></label>
+    <input id="ct-phone" name="phone" type="tel" autocomplete="tel" value="<%= cOld.phone || '' %>">
+  </div>
+
+  <div class="field">
+    <label for="ct-message">How can we help? <span class="req" aria-hidden="true">*</span></label>
+    <textarea id="ct-message" name="message" rows="4" required maxlength="2000"
+              aria-describedby="ct-message-error"
+              <%= cErr.message ? 'aria-invalid="true"' : '' %>><%= cOld.message || '' %></textarea>
+    <p class="field-error" id="ct-message-error" data-error-for="message"><%= cErr.message || '' %></p>
+  </div>
+
+  <button class="btn btn--primary btn--block" type="submit" data-submit>
+    <span class="btn__label">Send message</span>
+    <span class="btn__spinner" aria-hidden="true"></span>
+  </button>
+  <p class="contact-form__fineprint"><%- icon('lock') %> Please do not send clinical details or photographs by this form.</p>
+</form>

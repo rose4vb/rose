@@ -1,0 +1,85 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page">Contact</span>
+        </nav>
+        <p class="eyebrow">Find us</p>
+        <h1 class="page-hero__title">Wimpole Street,<br><em>Marylebone.</em></h1>
+        <p class="page-hero__lede">Two minutes from Oxford Circus, on a quiet street with a plane tree
+          outside the door. Call, message, or send a note — a person reads every one.</p>
+      </div>
+      <aside class="page-hero__aside">
+        <p><strong>Emergencies:</strong> call the clinic during opening hours and we will see you the
+          same day where possible. Out of hours, our answering service reaches the on-call clinician.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section contact-band" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 class="sr-only" id="contact-title">Contact details and directions</h2>
+
+      <ul class="contact-facts">
+        <li>
+          <span class="contact-facts__icon"><%- icon('pin') %></span>
+          <h3>Visit</h3>
+          <p><%= clinic.address %></p>
+          <a class="link-arrow" href="<%= clinic.mapLink %>" target="_blank" rel="noopener noreferrer">Get directions <%- icon('arrow-up-right') %></a>
+        </li>
+        <li>
+          <span class="contact-facts__icon"><%- icon('phone') %></span>
+          <h3>Call</h3>
+          <p><a href="tel:<%= clinic.phoneHref %>"><%= clinic.phone %></a></p>
+          <a class="link-arrow" href="https://wa.me/<%= clinic.whatsapp %>" target="_blank" rel="noopener noreferrer">WhatsApp us <%- icon('whatsapp') %></a>
+        </li>
+        <li>
+          <span class="contact-facts__icon"><%- icon('mail') %></span>
+          <h3>Write</h3>
+          <p><a href="mailto:<%= clinic.email %>"><%= clinic.email %></a></p>
+          <span class="contact-facts__hint">Replies within one working day</span>
+        </li>
+        <li>
+          <span class="contact-facts__icon"><%- icon('clock') %></span>
+          <h3>Opening hours</h3>
+          <ul class="contact-hours">
+            <% clinic.hours.forEach(function (h) { %>
+              <li><span><%= h.day %></span><span><%= h.time %></span></li>
+            <% }); %>
+          </ul>
+        </li>
+      </ul>
+
+      <div class="contact-band__lower">
+        <div>
+          <div class="contact-band__map">
+            <iframe src="<%= clinic.map %>" title="Map showing <%= clinic.name %> on Wimpole Street"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <a class="contact-band__map-link" href="<%= clinic.mapLink %>" target="_blank" rel="noopener noreferrer">
+              <%- icon('map-pin') %> Open in maps
+            </a>
+          </div>
+
+          <ul class="contact-directions" style="margin-top: 1.4rem; display: grid; gap: 0.8rem; font-size: 0.86rem; color: var(--muted);">
+            <li style="display: flex; gap: 0.6rem;"><%- icon('pin') %><span><strong style="color: var(--ink);">By tube:</strong> Oxford Circus (Bakerloo, Central, Victoria) — four minutes on foot.</span></li>
+            <li style="display: flex; gap: 0.6rem;"><%- icon('pin') %><span><strong style="color: var(--ink);">By bus:</strong> routes 55 and 73 stop on Great Portland Street.</span></li>
+            <li style="display: flex; gap: 0.6rem;"><%- icon('pin') %><span><strong style="color: var(--ink);">Parking:</strong> Q-Park Oxford Street, two minutes away. Step-free access at the entrance.</span></li>
+          </ul>
+        </div>
+
+        <%- include('partials/contact-form') %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

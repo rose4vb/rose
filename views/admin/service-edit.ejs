@@ -1,0 +1,128 @@
+<%- include('partials/head', {
+  pageTitle: isNew ? 'Add treatment' : 'Edit treatment',
+  pageMeta: service.name || 'New treatment'
+}) %>
+
+<% if (error) { %><p class="admin-flash" style="background:#fbeeec;border-color:rgba(168,75,82,.35);color:#8f3d46;"><%= error %></p><% } %>
+
+<section class="admin-card">
+  <div class="admin-card__head">
+    <h2><%= isNew ? 'New treatment' : service.name %></h2>
+    <div class="admin-actions">
+      <% if (!isNew) { %>
+        <a class="admin-link-btn" href="/services/<%= service.slug %>" target="_blank" rel="noopener noreferrer">View page ↗</a>
+      <% } %>
+      <a class="admin-link-btn" href="/admin/services">Back to list</a>
+    </div>
+  </div>
+
+  <div class="admin-card__body">
+    <form class="admin-form" method="post" action="/admin/services/<%= isNew ? 'new' : service.id %>">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="name">Treatment name <span class="req">*</span></label>
+          <input id="name" name="name" type="text" required value="<%= service.name || '' %>">
+        </div>
+        <div class="field">
+          <label for="slug">URL slug</label>
+          <input id="slug" name="slug" type="text" value="<%= service.slug || '' %>" placeholder="generated from the name">
+        </div>
+      </div>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="icon">Icon</label>
+          <select id="icon" name="icon">
+            <% ['tooth','sparkle','implant','crown','braces','child','shield','scan','leaf','heart'].forEach(function (name) { %>
+              <option value="<%= name %>" <%= service.icon === name ? 'selected' : '' %>><%= name %></option>
+            <% }); %>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort">Display order</label>
+          <input id="sort" name="sort" type="number" value="<%= service.sort || 0 %>">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="tagline">Tagline</label>
+        <input id="tagline" name="tagline" type="text" value="<%= service.tagline || '' %>">
+      </div>
+
+      <div class="field">
+        <label for="blurb">Short description (cards &amp; meta)</label>
+        <textarea id="blurb" name="blurb" rows="2" maxlength="300"><%= service.blurb || '' %></textarea>
+      </div>
+
+      <div class="field">
+        <label for="description">Full description</label>
+        <textarea id="description" name="description" rows="7"><%= service.description || '' %></textarea>
+        <p class="admin-help">Separate paragraphs with a blank line.</p>
+      </div>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="price">Price</label>
+          <input id="price" name="price" type="text" value="<%= service.price || '' %>" placeholder="From £85">
+        </div>
+        <div class="field">
+          <label for="duration">Duration</label>
+          <input id="duration" name="duration" type="text" value="<%= service.duration || '' %>" placeholder="45 minutes">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="image">Image URL</label>
+        <input id="image" name="image" type="url" value="<%= service.image || '' %>">
+      </div>
+
+      <div class="field">
+        <label for="benefits">What is included — one per line</label>
+        <textarea id="benefits" name="benefits" rows="4"><%= (service.benefits || []).join('\n') %></textarea>
+      </div>
+
+      <div class="field">
+        <label for="steps">Procedure steps — one per line as “Title | description”</label>
+        <textarea id="steps" name="steps" rows="5"><%= (service.steps || []).map(function (s) { return s.title + ' | ' + s.text; }).join('\n') %></textarea>
+      </div>
+
+      <div class="field">
+        <label for="faqs">Treatment FAQs — one per line as “Question | Answer”</label>
+        <textarea id="faqs" name="faqs" rows="4"><%= (service.faqs || []).map(function (f) { return f.q + ' | ' + f.a; }).join('\n') %></textarea>
+      </div>
+
+      <div class="admin-grid-2">
+        <div class="field">
+          <label for="worry_q">Common worry (question)</label>
+          <input id="worry_q" name="worry_q" type="text" value="<%= service.worry ? service.worry.q : '' %>">
+        </div>
+        <div class="field">
+          <label for="worry_a">How we answer it</label>
+          <input id="worry_a" name="worry_a" type="text" value="<%= service.worry ? service.worry.a : '' %>">
+        </div>
+      </div>
+
+      <label class="admin-toggle">
+        <input type="checkbox" name="featured" value="1" <%= service.featured ? 'checked' : '' %>>
+        Feature this treatment on the home page
+      </label>
+
+      <div class="admin-actions">
+        <button class="btn btn--primary" type="submit">Save treatment</button>
+        <a class="btn btn--ghost btn--sm" href="/admin/services">Cancel</a>
+      </div>
+    </form>
+
+    <% if (!isNew) { %>
+      <form method="post" action="/admin/services/<%= service.id %>/delete" style="margin-top:1.4rem;"
+            data-confirm="Delete “<%= service.name %>”? This cannot be undone.">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="admin-danger" type="submit">Delete this treatment</button>
+      </form>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/foot') %>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title><%= pageTitle %> · Sakura Smile Clinic Management</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-side">
+    <a class="brand" href="/admin" aria-label="Sakura Smile management — dashboard">
+      <span class="brand__mark"><%- logomark() %></span>
+      <span class="brand__text">
+        <span class="brand__name"><%= clinic.name %></span>
+        <span class="brand__sub">Clinic Management</span>
+      </span>
+    </a>
+
+    <p class="admin-side__label">Daily work</p>
+
+    <nav class="admin-nav" aria-label="Clinic management">
+      <a href="/admin" class="<%= active === 'appointments' ? 'is-active' : '' %>">
+        <%- icon('calendar') %><span>Appointments</span>
+        <% if (typeof counts !== 'undefined' && counts && counts.pending) { %><span class="admin-nav__badge"><%= counts.pending %></span><% } %>
+      </a>
+      <a href="/admin/services" class="<%= active === 'services' ? 'is-active' : '' %>">
+        <%- icon('tooth') %><span>Services</span>
+      </a>
+      <a href="/admin/testimonials" class="<%= active === 'testimonials' ? 'is-active' : '' %>">
+        <%- icon('quote') %><span>Patient stories</span>
+      </a>
+      <a href="/admin/content" class="<%= active === 'content' ? 'is-active' : '' %>">
+        <%- icon('leaf') %><span>Content &amp; FAQ</span>
+      </a>
+      <a href="/admin/messages" class="<%= active === 'messages' ? 'is-active' : '' %>">
+        <%- icon('mail') %><span>Messages</span>
+        <% if (typeof unread !== 'undefined' && unread) { %><span class="admin-nav__badge"><%= unread %></span><% } %>
+      </a>
+    </nav>
+
+    <div class="admin-side__foot">
+      <span>Signed in as<br><strong style="color:#fff;font-weight:600;"><%= admin.email %></strong></span>
+      <a href="/" target="_blank" rel="noopener noreferrer">View website <%- icon('external') %></a>
+      <form method="post" action="/admin/logout">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="admin-side__logout" type="submit">Sign out</button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-top">
+      <div>
+        <h1><%= pageTitle %></h1>
+        <p class="admin-top__meta"><%= typeof pageMeta !== 'undefined' ? pageMeta : 'Sakura Smile Dental Clinic' %></p>
+      </div>
+      <div class="admin-top__actions">
+        <a class="btn btn--primary btn--sm" href="/book" target="_blank" rel="noopener noreferrer">
+          <%- icon('calendar') %><span>Booking page</span>
+        </a>
+      </div>
+    </header>
+
+    <div class="admin-content">
+      <% if (typeof flash !== 'undefined' && flash) { %>
+        <p class="admin-flash" role="status"><%= flash %></p>
+      <% } %>

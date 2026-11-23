@@ -1,0 +1,74 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page">Book an Appointment</span>
+        </nav>
+        <p class="eyebrow">Book your visit</p>
+        <h1 class="page-hero__title">Schedule your<br><em>appointment.</em></h1>
+        <p class="page-hero__lede">Take the first step toward a healthier, more confident smile. Tell
+          us roughly when suits you and we will find a time that genuinely does.</p>
+      </div>
+      <aside class="page-hero__aside">
+        <p><strong>What happens next:</strong> we read your request, call you to agree a time, and send
+          a written confirmation. Nothing is final until we have spoken.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container appointment__inner">
+      <div>
+        <p class="eyebrow">Before you book</p>
+        <h2 class="section-title">Three steps,<br><em>no surprises.</em></h2>
+
+        <ol class="steps-list" style="margin-top: 1.6rem;">
+          <li class="step">
+            <span class="step__num">01</span>
+            <div>
+              <h3>Send a request</h3>
+              <p>Tell us the treatment and a rough date. It takes about a minute and is not a commitment.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">02</span>
+            <div>
+              <h3>We call you</h3>
+              <p>A member of reception rings within one working day to agree the exact time and answer questions.</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">03</span>
+            <div>
+              <h3>You are confirmed</h3>
+              <p>We send a written confirmation with directions, what to bring and who you will see.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="aside-card" style="margin-top: 2rem;">
+          <p class="aside-card__title">Prefer to talk?</p>
+          <div class="aside-card__row"><span>Reception</span><span><a href="tel:<%= clinic.phoneHref %>"><%= clinic.phone %></a></span></div>
+          <div class="aside-card__row"><span>WhatsApp</span><span><a href="https://wa.me/<%= clinic.whatsapp %>" target="_blank" rel="noopener noreferrer">Message us</a></span></div>
+          <div class="aside-card__row"><span>Email</span><span><a href="mailto:<%= clinic.email %>"><%= clinic.email %></a></span></div>
+          <div class="aside-card__row"><span>Saturday</span><span>9:00 — 14:00</span></div>
+        </div>
+      </div>
+
+      <div>
+        <%- include('partials/booking-form') %>
+      </div>
+    </div>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

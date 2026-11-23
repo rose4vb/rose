@@ -1,0 +1,110 @@
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="container page-hero__inner">
+      <div>
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a>
+          <%- icon('chevron-right') %>
+          <span aria-current="page">Smile Gallery</span>
+        </nav>
+        <p class="eyebrow">The smile archive</p>
+        <h1 class="page-hero__title">Transformations,<br><em>quietly made.</em></h1>
+        <p class="page-hero__lede">Drag the handle to compare. Every image here is clearly labelled
+          demonstration content — we publish patient photography only with written consent.</p>
+      </div>
+      <aside class="page-hero__aside">
+        <p>No clinical result is claimed on this page. Real cases will be added as consent is given,
+          with the treatment, timeline and limitations stated honestly.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="gallery-page">
+    <div class="container">
+      <div class="gallery-page__filters">
+        <div class="chips" role="group" aria-label="Filter smile cases by treatment">
+          <button class="chip is-active" type="button" data-filter="all" aria-pressed="true">All cases</button>
+          <% Array.from(new Set(cases.map(function (c) { return c.category; }))).forEach(function (cat) { %>
+            <button class="chip" type="button" data-filter="<%= cat %>" aria-pressed="false"><%= cat %></button>
+          <% }); %>
+        </div>
+        <p>Use the slider (or focus it and use the arrow keys) to reveal each comparison.</p>
+      </div>
+
+      <div class="gallery-page__cases" data-cases>
+        <% cases.forEach(function (c) { %>
+          <article class="case" data-category="<%= c.category %>">
+            <div class="compare" data-compare style="--pos:50%">
+              <img class="compare__img compare__img--after" src="<%= c.after %>"
+                   alt="After treatment — demonstration image for <%= c.title %>"
+                   width="900" height="700" loading="lazy">
+              <div class="compare__before">
+                <img class="compare__img" src="<%= c.before %>" alt="" width="900" height="700" loading="lazy">
+              </div>
+              <span class="compare__tag compare__tag--before">Before</span>
+              <span class="compare__tag compare__tag--after">After</span>
+              <div class="compare__handle" aria-hidden="true">
+                <span class="compare__grip"><%- icon('chevron-left') %><%- icon('chevron-right') %></span>
+              </div>
+              <input class="compare__range" type="range" min="0" max="100" value="50" step="1"
+                     aria-label="Reveal before and after for <%= c.title %>" data-compare-range>
+            </div>
+            <div class="case__foot">
+              <div>
+                <h3><%= c.title %></h3>
+                <p><%= c.category %></p>
+              </div>
+              <span class="case__note"><%= c.note %></span>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <section class="section clinic-strip">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-head__lead">
+          <p class="eyebrow">The clinic</p>
+          <h2 class="section-title">Where the work<br><em>happens.</em></h2>
+        </div>
+        <p class="section-head__aside-text">Warm light, quiet rooms and instruments laid out before you
+          arrive. Tap any photograph to look closer.</p>
+      </div>
+
+      <div class="gallery__grid">
+        <% gallery.forEach(function (shot, i) { %>
+          <button class="gallery__item gallery__item--<%= i % 3 %>" type="button"
+                  data-lightbox
+                  data-full="<%= shot.image %>"
+                  data-title="<%= shot.title %>"
+                  data-caption="<%= shot.caption %>"
+                  aria-label="Open photograph: <%= shot.title %>">
+            <img src="<%= shot.image %>" alt="<%= shot.title %> — <%= shot.caption %>"
+                 width="800" height="1000" loading="lazy">
+            <span class="gallery__meta">
+              <span class="gallery__category"><%= shot.category %></span>
+              <span class="gallery__title"><%= shot.title %></span>
+              <span class="gallery__expand" aria-hidden="true"><%- icon('arrow-up-right') %></span>
+            </span>
+          </button>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <%- include('partials/cta-band', {
+    ctaTitle: 'Curious what is<br><em>possible for you?</em>',
+    ctaText: 'A consultation includes photographs, a scan and an honest conversation about what would actually change.'
+  }) %>
+</main>
+
+<%- include('partials/lightbox') %>
+<%- include('partials/footer') %>
+<script src="/js/main.js" defer></script>
+</body>
+</html>

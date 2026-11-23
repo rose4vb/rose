@@ -1,0 +1,33 @@
+<section class="section gallery" aria-labelledby="gallery-title">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <div class="section-head__lead">
+        <p class="eyebrow">The clinic</p>
+        <h2 class="section-title" id="gallery-title">A space that<br><em>exhales.</em></h2>
+      </div>
+      <p class="gallery__intro">Warm light, quiet rooms and instruments laid out before you arrive.
+        Come and see it in person — or take a look around first.</p>
+    </div>
+
+    <div class="gallery__grid">
+      <% gallery.forEach(function (shot, i) { %>
+        <button class="gallery__item gallery__item--<%= i % 3 %>" type="button"
+                data-lightbox
+                data-full="<%= shot.image %>"
+                data-title="<%= shot.title %>"
+                data-caption="<%= shot.caption %>"
+                aria-label="Open photograph: <%= shot.title %>">
+          <img src="<%= shot.image %>" alt="<%= shot.title %> — <%= shot.caption %>"
+               width="800" height="1000" loading="lazy">
+          <span class="gallery__meta">
+            <span class="gallery__category"><%= shot.category %></span>
+            <span class="gallery__title"><%= shot.title %></span>
+            <span class="gallery__expand" aria-hidden="true"><%- icon('arrow-up-right') %></span>
+          </span>
+        </button>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/lightbox') %>

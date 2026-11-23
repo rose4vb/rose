@@ -1,0 +1,56 @@
+<%
+  const navItems = [
+    { href: '/', label: 'Home' },
+    { href: '/services', label: 'Services' },
+    { href: '/about', label: 'About Us' },
+    { href: '/patient-stories', label: 'Patient Stories' },
+    { href: '/contact', label: 'Contact' }
+  ];
+  const isActive = (href) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+%>
+<header class="site-header" data-header>
+  <div class="container header__inner">
+    <a class="brand" href="/" aria-label="<%= clinic.name %> <%= clinic.subtitle %> — home">
+      <span class="brand__mark"><%- logomark() %></span>
+      <span class="brand__text">
+        <span class="brand__name"><%= clinic.name %></span>
+        <span class="brand__sub"><%= clinic.subtitle %></span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Primary navigation">
+      <% navItems.forEach(function (item) { %>
+        <a class="nav__link<%= isActive(item.href) ? ' is-active' : '' %>" href="<%= item.href %>"
+           <%= isActive(item.href) ? 'aria-current="page"' : '' %>><%= item.label %></a>
+      <% }); %>
+    </nav>
+
+    <div class="header__actions">
+      <a class="btn btn--primary btn--sm header__cta" href="/book">
+        <%- icon('calendar') %><span>Book Appointment</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"
+              aria-label="Open menu" data-nav-toggle>
+        <span class="nav-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav" data-mobile-nav hidden>
+    <nav class="mobile-nav__links" aria-label="Mobile navigation">
+      <% navItems.forEach(function (item, i) { %>
+        <a href="<%= item.href %>" class="mobile-nav__link<%= isActive(item.href) ? ' is-active' : '' %>"
+           style="--i:<%= i %>"><span><%= item.label %></span><%- icon('arrow-up-right') %></a>
+      <% }); %>
+    </nav>
+    <div class="mobile-nav__foot">
+      <a class="btn btn--primary" href="/book"><%- icon('calendar') %><span>Book an appointment</span></a>
+      <div class="mobile-nav__meta">
+        <a href="tel:<%= clinic.phoneHref %>"><%- icon('phone') %><span><%= clinic.phone %></span></a>
+        <p><%= clinic.address %></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="scroll-flourish" aria-hidden="true"><span class="scroll-flourish__line" data-scroll-progress></span></div>

@@ -1,0 +1,53 @@
+<section class="section contact-band" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-head__lead">
+        <p class="eyebrow">Find us</p>
+        <h2 class="section-title" id="contact-title">Wimpole Street,<br><em>Marylebone.</em></h2>
+      </div>
+      <p class="section-head__aside-text">A few minutes from Oxford Circus, on a quiet street with a
+        plane tree outside the door. Buses 55 and 73 stop around the corner.</p>
+    </div>
+
+    <ul class="contact-facts">
+      <li>
+        <span class="contact-facts__icon"><%- icon('pin') %></span>
+        <h3>Visit</h3>
+        <p><%= clinic.address %></p>
+        <a class="link-arrow" href="<%= clinic.mapLink %>" target="_blank" rel="noopener noreferrer">Get directions <%- icon('arrow-up-right') %></a>
+      </li>
+      <li>
+        <span class="contact-facts__icon"><%- icon('phone') %></span>
+        <h3>Call</h3>
+        <p><a href="tel:<%= clinic.phoneHref %>"><%= clinic.phone %></a></p>
+        <a class="link-arrow" href="https://wa.me/<%= clinic.whatsapp %>" target="_blank" rel="noopener noreferrer">WhatsApp us <%- icon('whatsapp') %></a>
+      </li>
+      <li>
+        <span class="contact-facts__icon"><%- icon('mail') %></span>
+        <h3>Write</h3>
+        <p><a href="mailto:<%= clinic.email %>"><%= clinic.email %></a></p>
+        <span class="contact-facts__hint">Replies within one working day</span>
+      </li>
+      <li>
+        <span class="contact-facts__icon"><%- icon('clock') %></span>
+        <h3>Opening hours</h3>
+        <ul class="contact-hours">
+          <% clinic.hours.forEach(function (h) { %>
+            <li><span><%= h.day %></span><span><%= h.time %></span></li>
+          <% }); %>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="contact-band__lower">
+      <div class="contact-band__map">
+        <iframe src="<%= clinic.map %>" title="Map showing <%= clinic.name %> on Wimpole Street"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <a class="contact-band__map-link" href="<%= clinic.mapLink %>" target="_blank" rel="noopener noreferrer">
+          <%- icon('map-pin') %> Open in maps
+        </a>
+      </div>
+      <%- include('../partials/contact-form') %>
+    </div>
+  </div>
+</section>

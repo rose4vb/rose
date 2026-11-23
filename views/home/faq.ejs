@@ -1,0 +1,31 @@
+<section class="section faq" aria-labelledby="faq-title">
+  <div class="container faq__inner">
+    <div class="faq__head">
+      <p class="eyebrow">Good questions</p>
+      <h2 class="section-title" id="faq-title">Before you<br><em>come in.</em></h2>
+      <p>If your question is not here, call us — a person answers, and they will not read from a script.</p>
+      <a class="faq__contact" href="tel:<%= clinic.phoneHref %>">
+        <span class="faq__contact-icon"><%- icon('phone') %></span>
+        <span><span class="faq__contact-label">Speak to reception</span><%= clinic.phone %></span>
+      </a>
+    </div>
+
+    <div class="accordion" data-accordion>
+      <% faqs.forEach(function (item, i) { %>
+        <div class="faq-item">
+          <h3 class="faq-item__heading">
+            <button class="faq-item__button" type="button" id="faq-btn-<%= i %>"
+                    aria-expanded="false" aria-controls="faq-panel-<%= i %>" data-faq>
+              <span class="faq-item__q"><%= item.question %></span>
+              <span class="faq-item__icon" aria-hidden="true"><span></span><span></span></span>
+            </button>
+          </h3>
+          <div class="faq-item__panel" id="faq-panel-<%= i %>" role="region"
+               aria-labelledby="faq-btn-<%= i %>" hidden>
+            <p><%= item.answer %></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
